@@ -124,7 +124,7 @@ async Task InitializeDatabase(WebApplication app)
             IsAdmin = true
         };
 
-        await userManager.CreateAsync(adminUser, "admin123");
+        await userManager.CreateAsync(adminUser, "tDPjRYhkFpMidxFk");
 
         var normalUser = new ApplicationUser
         {
@@ -133,6 +133,6 @@ async Task InitializeDatabase(WebApplication app)
             IsAdmin = false
         };
 
-        await userManager.CreateAsync(normalUser, "user123");
+        await userManager.CreateAsync(normalUser, "5CCeyuLFQqGfO41E");
     }
 }
