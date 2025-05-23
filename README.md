@@ -46,3 +46,14 @@ dotnet run
 | 管理员 | admin    | tDPjRYhkFpMidxFk   |
 | 普通用户 | user     | 5CCeyuLFQqGfO41E    |
 
+## Docker构建
+```bash
+# 构建
+docker build -t httptaskscheduler:latest .
+
+# 运行
+docker run --name httptask -dit -p 8080:8080 httptaskscheduler:latest
+
+# 数据持久化，将app.db数据文件挂载出来
+docker run --name httptask -dit -p 8080:8080 -v /yourpath/app.db:/app/app.db httptaskscheduler:latest
+```
