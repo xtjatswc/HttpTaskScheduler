@@ -1,0 +1,56 @@
+﻿@model TaskExecutionLog
+
+<div class="modal-header">
+    <h5 class="modal-title">Execution Details - @Model.TaskSchedule.Name</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <h6>Start Time:</h6>
+            <p>@Model.StartTime.ToString("yyyy-MM-dd HH:mm:ss")</p>
+        </div>
+        <div class="col-md-6">
+            <h6>Duration:</h6>
+            <p>@((Model.EndTime - Model.StartTime)?.ToString(@"hh\:mm\:ss\.fff"))</p>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <h6>Status:</h6>
+            @if (Model.IsSuccess)
+            {
+                <span class="badge rounded-pill bg-success" style="font-size: 0.9em; padding: 5px 10px;">Success</span>
+            }
+            else
+            {
+                <span class="badge rounded-pill bg-danger" style="font-size: 0.9em; padding: 5px 10px;">Failed</span>
+            }
+
+        </div>
+        <div class="col-md-6">
+            <h6>Task ID:</h6>
+            <p>@Model.TaskScheduleId</p>
+        </div>
+    </div>
+
+    <h6>Response:</h6>
+    @if (!string.IsNullOrEmpty(Model.Response))
+    {
+        <pre class="bg-light p-3 rounded">@Model.Response</pre>
+    }
+    else
+    {
+        <p class="text-muted">No response data</p>
+    }
+
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <h6>Error:</h6>
+        <pre class="bg-light p-3 rounded text-danger">@Model.ErrorMessage</pre>
+    }
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+</div>

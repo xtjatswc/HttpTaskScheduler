@@ -1,0 +1,77 @@
+﻿@model TaskSchedule
+
+@{
+    ViewData["Title"] = "Edit Task";
+}
+
+<h2>Edit Task</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Url" class="control-label"></label>
+                <input asp-for="Url" class="form-control" />
+                <span asp-validation-for="Url" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="HttpMethod" class="control-label"></label>
+                <select asp-for="HttpMethod" class="form-control">
+                    <option>GET</option>
+                    <option>POST</option>
+                    <option>PUT</option>
+                    <option>DELETE</option>
+                    <option>PATCH</option>
+                </select>
+                <span asp-validation-for="HttpMethod" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Headers" class="control-label"></label>
+                <textarea asp-for="Headers" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Headers" class="text-danger"></span>
+                <small class="form-text text-muted">Format: <br />Header1:Value1<br />Header2:Value2</small>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Body" class="control-label"></label>
+                <textarea asp-for="Body" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="Body" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CronExpression" class="control-label"></label>
+                <input asp-for="CronExpression" class="form-control" />
+                <span asp-validation-for="CronExpression" class="text-danger"></span>
+                <small class="form-text text-muted">Example: 0 0/5 * * * ? (every 5 minutes)</small>
+            </div>
+
+            <div class="form-group form-check">
+                <input class="form-check-input" asp-for="IsActive" />
+                <label class="form-check-label" asp-for="IsActive"></label>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

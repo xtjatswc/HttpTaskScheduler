@@ -1,0 +1,43 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <span class="nav-link text-dark user-greeting">
+                <strong>@User.Identity?.Name</strong>
+            </span>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-controller="Account" asp-action="Logout" method="post">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="nav-link btn btn-link">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+        </li>
+    }
+</ul>
+
+<style>
+    .user-greeting {
+        cursor: default; /* 禁用指针样式 */
+        padding: 0.5rem 1rem;
+        display: flex;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        margin-right: 0.5rem;
+    }
+
+    .user-greeting strong {
+        color: #0d6efd; /* Bootstrap 主色 */
+        margin-left: 0.3rem;
+    }
+</style>
