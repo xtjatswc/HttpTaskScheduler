@@ -31,7 +31,7 @@ graph TD
 ## 快速部署
 ```bash
 # 1. 克隆项目
-git clone https://github.com/your-repo/http-task-scheduler.git
+git clone https://gitee.com/xtjatswc/http-task-scheduler.git
 
 # 2. 配置数据库
 dotnet ef database update
