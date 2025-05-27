@@ -1,4 +1,5 @@
-﻿using HttpTaskScheduler.Job;
+﻿using CronExpressionDescriptor;
+using HttpTaskScheduler.Job;
 using HttpTaskScheduler.Models;
 using Microsoft.EntityFrameworkCore;
 using Quartz;
@@ -129,4 +130,14 @@ public class QuartzHostedService : IHostedService
 
         return fireTimes;
     }
+
+    public string GetDescription(string cronExpression)
+    {
+        var options = new Options
+        {
+            Locale = "zh-CN"
+        };
+        return ExpressionDescriptor.GetDescription(cronExpression, options);
+    }
+
 }

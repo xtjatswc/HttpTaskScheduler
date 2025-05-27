@@ -298,8 +298,10 @@ public class TasksController : Controller
             return Forbid();
         }
 
-        var fireTimes = await _quartzService.GetNextFireTimes(id, task.CronExpression, 10);
+        var fireTimes = await _quartzService.GetNextFireTimes(id, task.CronExpression, 15);
         ViewBag.TaskName = task.Name;
+        ViewBag.CronExpression = task.CronExpression;
+        ViewBag.Description = _quartzService.GetDescription(task.CronExpression);
         return View(fireTimes);
     }
 
