@@ -1,7 +1,7 @@
 # HTTP任务计划调度系统
 
 ## 项目介绍
-- **.NET 9.0 + Quartz.NET**：高性能框架组合，支持复杂任务调度
+- **.NET 9.0 + Quartz.NET**：高性能框架组合，支持复杂任务调度，带cron表达式设计器
 - **简单权限分层**：普通用户仅能管理个人任务，管理员可全局操作
 - **SQLite存储**：轻量级数据库，无需额外部署
 - **完整生命周期管理**：任务创建、编辑、执行、日志查看一体化
@@ -38,6 +38,32 @@ dotnet ef database update
 
 # 3. 启动服务
 dotnet run
+```
+
+## API密钥认证
+任务调度走轻量化配置，推荐用简单的认证方式，如果需要复制的认证机制，可基于本项目做二次开发
+
+```csharp
+// 发送方
+在任务创建页面配置Headers：
+X-API-Key:your-secret-api-key
+
+// 接收方
+[ApiController]
+public class MyController : ControllerBase
+{
+    [HttpGet("secure-data")]
+    public IActionResult GetSecureData()
+    {
+        if (!Request.Headers.TryGetValue("X-API-Key", out var apiKey) || 
+            apiKey != "your-secret-api-key")
+        {
+            return Unauthorized();
+        }
+        
+        return Ok("Secure data");
+    }
+}
 ```
 
 ## 默认账户
