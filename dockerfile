@@ -14,6 +14,11 @@ RUN dotnet publish "HttpTaskScheduler.csproj" -c Release -o /app/publish
 # 使用 .NET 9.0 运行时作为基础镜像来运行应用程序
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
 WORKDIR /app
+
+# 设置中国时区环境变量（运行时阶段）
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 COPY --from=build /app/publish .
 
 # 暴露应用程序端口，这里假设应用程序使用 8080 端口
