@@ -113,7 +113,7 @@ public class QuartzHostedService : IHostedService
         await _scheduler.TriggerJob(jobKey, cancellationToken);
     }
 
-    public async Task<List<DateTimeOffset>> GetNextFireTimes(int taskId, string cronExpression, int count)
+    public async Task<List<DateTimeOffset>> GetNextFireTimes(string cronExpression, int count)
     {
         var trigger = TriggerBuilder.Create()
             .WithCronSchedule(cronExpression)
