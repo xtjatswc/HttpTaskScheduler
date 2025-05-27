@@ -960,24 +960,24 @@
                     const executionPlanTable = document.getElementById('executionPlan');
                     executionPlanTable.innerHTML = '';
 
-                    data.list.forEach((time, index) => {
-                        const row = document.createElement('tr');
-                        // 移除时区信息 (+08:00) 并格式化
-                        const formattedTime = time.replace(' +08:00', '');
-                        row.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td>${formattedTime}</td>
-                `;
-                        executionPlanTable.appendChild(row);
-                    });
+                    if (data.success) {
+                        data.list.forEach((time, index) => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>${index + 1}</td>
+                                <td>${time}</td>
+                            `;
+                            executionPlanTable.appendChild(row);
+                        });
+                    }
                 })
                 .catch(error => {
                     console.error('获取执行计划失败:', error);
                     document.getElementById('executionPlan').innerHTML = `
-                <tr>
-                    <td colspan="2" style="color: red;">获取执行计划失败: ${error.message}</td>
-                </tr>
-            `;
+                        <tr>
+                            <td colspan="2" style="color: red;">获取执行计划失败: ${error.message}</td>
+                        </tr>
+                    `;
                     document.getElementById('cronDesc').textContent = '';
                 });
         }

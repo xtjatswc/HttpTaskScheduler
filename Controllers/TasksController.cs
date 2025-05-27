@@ -269,7 +269,7 @@ public class TasksController : Controller
             return NotFound();
         }
 
-        if(!task.IsActive)
+        if (!task.IsActive)
         {
             return Forbid();
         }
@@ -308,9 +308,14 @@ public class TasksController : Controller
     [AllowAnonymous]
     public async Task<IActionResult> NextCronFireTimes(string cronExpression)
     {
+        if (!CronExpression.IsValidExpression(cronExpression))
+        {
+            return Ok(new { success = false, desc = "cron表达式格式错误！" });
+        }
+
         var fireTimes = await _quartzService.GetNextFireTimes(cronExpression, 15);
         string desc = _quartzService.GetDescription(cronExpression);
-        return Ok(new { desc, list = fireTimes.Select(o => o.ToString("yyyy-MM-dd HH:mm:ss zzz"))});
+        return Ok(new { success = true, desc, list = fireTimes.Select(o => o.ToString("yyyy-MM-dd HH:mm:ss")) });
     }
 
     public async Task<IActionResult> ExecutionLogs(int id, int page = 1, int pageSize = 20)
