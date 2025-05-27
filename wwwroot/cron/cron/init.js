@@ -187,6 +187,13 @@ function initCronFromTable() {
             item.push(this.innerHTML);
         });
         cron.val(item.join(" "));
+
+        // 创建并触发input事件
+        const event = new Event('input', {
+            bubbles: true,
+            cancelable: true
+        });
+        cron[0].dispatchEvent(event);
     });
 }
 
