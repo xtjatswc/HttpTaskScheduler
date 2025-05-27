@@ -45,7 +45,7 @@ dotnet run
 
 ```csharp
 // 发送方
-在任务创建页面配置Headers：
+// 在任务创建页面配置Headers：
 X-API-Key:your-secret-api-key
 
 // 接收方
