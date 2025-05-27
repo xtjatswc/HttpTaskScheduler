@@ -28,11 +28,13 @@ var scheduler = await builder.Services.BuildServiceProvider()
 builder.Services.AddSingleton(scheduler);
 
 // 注册作业
-builder.Services.AddSingleton<SampleJob>();
 builder.Services.AddSingleton<HttpTaskJob>();
-builder.Services.AddSingleton(new JobSchedule(
-    jobType: typeof(SampleJob),
-    cronExpression: "0/5 * * * * ?")); // 每5秒执行一次
+
+//示例
+builder.Services.AddSingleton<SampleJob>();
+//builder.Services.AddSingleton(new JobSchedule(
+//    jobType: typeof(SampleJob),
+//    cronExpression: "0/5 * * * * ?")); // 每5秒执行一次
 
 //builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
 // Register our custom Quartz service
